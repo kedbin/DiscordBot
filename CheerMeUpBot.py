@@ -4,6 +4,7 @@ from Credentials import token
 from discord.ext import commands
 import os
 import requests
+import random
 
 client = commands.Bot(command_prefix = '.')
 
@@ -35,5 +36,14 @@ async def save(ctx, directory):
                 print("Directory Made!")
                 saveImg(r,imageName)
 
+@client.command()
+async def cheermeup(ctx, idol):
+    files = [file for file in os.listdir(idol.lower()) if os.path.isfile(f"{idol.lower()}/{file}")]
+    choice = random.choice(files)
+    filePath = f"{idol.lower()}/{choice}"
+    print(f"The file chosen was {filePath}")
+    with open(filePath, "rb") as fh:
+        f = discord.File(fh, filename=choice)
+    await ctx.send(file=f)
 
 client.run(token)
