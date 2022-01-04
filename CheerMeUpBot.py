@@ -51,8 +51,8 @@ async def save(ctx, directory, description=None):
 async def cheermeup(ctx, idol=None):
     d = {}
     if idol == None:
-        await ctx.send("Please add a name!")
-        return
+        idol = random.choice([folder for folder in os.listdir() if not os.path.isfile(folder) and folder[0] != "." and folder[0] != "_"])
+        await ctx.send(f"No name provided, randomly chosen {idol.capitalize()} for you. Enjoy ;)")
     try:
         files = [file for file in os.listdir(idol.lower()) if os.path.isfile(f"{idol.lower()}/{file}") and file[0] != "."]
         choice = random.choice(files)
@@ -79,5 +79,6 @@ async def names(ctx):
     await ctx.send(f"The available categories are as follows")
     for i in files:
         await ctx.send(i.capitalize())
+
 
 client.run(token)
