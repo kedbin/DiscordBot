@@ -96,7 +96,7 @@ async def on_message(message):
         await message.channel.send(random.choice(["Mou!! Hazukashii >wwwww<. ;* ", "W-w-what are you saying?! BAKAAAAA!!! b-b-but thanks O////O",
         "I am but a bot uncapable of love x(", "H-h-hontou?? >////< I'm so happy to hear that from you, senpai.. I like you too",
         "BAKAAAAAAAAA! Not in public >www<" ]))
-    return
+    await client.process_commands(message)
 
 
 client.run(token)
