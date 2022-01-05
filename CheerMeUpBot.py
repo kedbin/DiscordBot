@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import discord
-from Credentials import token
+from Credentials import token, discordId
 from discord.ext import commands
 import os
 import requests
@@ -8,6 +8,15 @@ import random
 import datetime
 
 client = commands.Bot(command_prefix = '.')
+
+def is_k3dbin():
+    async def predicate(ctx):
+        if ctx.author.id not in discordId:
+            await ctx.send("To prevent a certain someone *cough* MONDYS *cough* from uploading a certain sleeping photo. \
+This command has been restricted. You cannot use this function.")
+            return 0
+        return 1
+    return commands.check(predicate)
 
 @client.event
 async def on_ready():
@@ -19,6 +28,7 @@ def saveImg(r, imageName):
         out_file.write(r.content)
 
 @client.command()
+@is_k3dbin()
 async def save(ctx, directory, description=None):
     try:
         url = ctx.message.attachments[0].url
@@ -79,6 +89,14 @@ async def names(ctx):
     await ctx.send(f"The available categories are as follows")
     for i in files:
         await ctx.send(i.capitalize())
+
+@client.event
+async def on_message(message):
+    if message.content.lower() in ["iloveyou", "iloveyou bot", "ilybot", "ilysm", "bestbot","iloveyoubot","i love you", "thankyou"]:
+        await message.channel.send(random.choice(["Mou!! Hazukashii >wwwww<. ;* ", "W-w-what are you saying?! BAKAAAAA!!! b-b-but thanks O////O",
+        "I am but a bot uncapable of love x(", "H-h-hontou?? >////< I'm so happy to hear that from you, senpai.. I like you too",
+        "BAKAAAAAAAAA! Not in public >www<" ]))
+    return
 
 
 client.run(token)
