@@ -87,8 +87,15 @@ async def cheermeup(ctx, idol=None):
 async def names(ctx):
     files = [ f for f in os.listdir() if not os.path.isfile(f) and f[0] != "_" and f[0] != "."]
     await ctx.send(f"The available categories are as follows")
-    for i in files:
-        await ctx.send(i.capitalize())
+    files.sort()
+        await ctx.send(f"{files.capitalize()})
+
+@client.command()
+async def barrage(ctx, idol=None):
+    for i in range(10):
+        cheermeup(ctx, idol)
+    return
+    
 
 @client.event
 async def on_message(message):
