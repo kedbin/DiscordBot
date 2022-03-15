@@ -88,7 +88,7 @@ async def names(ctx):
     files = [ f for f in os.listdir() if not os.path.isfile(f) and f[0] != "_" and f[0] != "."]
     await ctx.send(f"The available categories are as follows")
     files.sort()
-        await ctx.send(f"{files.capitalize()})
+        await ctx.send(f"{files.capitalize()}")
 
 @client.command()
 async def barrage(ctx, idol=None):
